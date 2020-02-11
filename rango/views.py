@@ -10,10 +10,13 @@ def index(request):
     # Place the list in our context_dict dictionary (with our boldmessage!)
     # that will be passed to the template engine.
     category_list = Category.objects.order_by('-likes')[:5]
+    page_list = Page.objects.order_by('-views')[:5]
+
 
     context_dict = {}
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories']= category_list
+    context_dict['pages']= page_list
    # context_dict = {'boldmessage' : 'Crunchy, creamy, cookie, candy, cupcake!'}
 
     # Render the response and send it back!
@@ -41,6 +44,8 @@ def show_category(request, category_name_slug):
         # If we can't, the .get() method raises a DoesNotExist exception.
         # The .get() method returns one model instance or raises an exception.
         category = Category.objects.get(slug=category_name_slug)
+        print(category)
+
 
         # Retrieve all of the associated pages.
         # The filter() will return a list of page objects or an empty list.
